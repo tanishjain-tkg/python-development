@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+
+# Virtual environments
+.venv/
+venv/
+
+# Testing and tooling
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Local data
+data/*.json
+
+# Editors
+.vscode/
