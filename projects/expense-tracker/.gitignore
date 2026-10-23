@@ -20,3 +20,6 @@ data/*.json
 
 # Editors
 .vscode/
+
+# Application logs
+logs/
