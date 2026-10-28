@@ -1,20 +1,26 @@
 # Python Expense Tracker
 
-A command-line expense tracking application built with Python.
+A command-line expense tracking application built with Python. The project demonstrates Python packaging, input validation, JSON persistence, custom exceptions, logging, and automated testing.
 
 ## Features
 
-- Add expenses with a description, category, and amount.
-- View all recorded expenses.
+- Add expenses with a description, category, amount, and date.
+- View recorded expenses.
 - Calculate total spending.
-- Validate user input and reject invalid amounts.
-- Use Python's `Decimal` for monetary calculations.
+- Delete expenses by ID.
+- Validate descriptions, categories, and monetary amounts.
+- Use `Decimal` for precise monetary calculations.
+- Persist expenses in a JSON file.
+- Handle invalid input and storage errors with custom exceptions.
+- Run automated tests with pytest.
 
 ## Tech Stack
 
-- Python 3.14
-- Standard Python library
-- Git and GitHub
+- Python 3.10+
+- pytest for automated testing
+- Ruff for linting and formatting
+- JSON for local data persistence
+- Git and GitHub for version control
 
 ## Project Structure
 
@@ -23,29 +29,46 @@ expense-tracker/
 ├── src/
 │   └── expense_tracker/
 │       ├── __init__.py
-│       └── main.py
+│       ├── main.py
+│       ├── models.py
+│       ├── services.py
+│       ├── storage.py
+│       └── exceptions.py
 ├── tests/
+│   ├── __init__.py
+│   ├── test_services.py
+│   └── test_storage.py
 ├── data/
 ├── .gitignore
 ├── pyproject.toml
 └── README.md
 ```
 
-## Setup
+## Prerequisites
+
+- Python 3.10 or newer
+- Git
+
+## Setup on Windows with Git Bash
 
 Clone the repository and navigate to the project directory.
 
-Create and activate a virtual environment:
+Create a virtual environment:
 
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
+python -m venv .venv
 ```
 
-Install the project in editable mode:
+Activate it in Git Bash:
 
 ```bash
-python -m pip install -e .
+source .venv/Scripts/activate
+```
+
+Install the project and development dependencies:
+
+```bash
+python -m pip install -e ".[dev]"
 ```
 
 ## Run the Application
@@ -54,17 +77,55 @@ python -m pip install -e .
 expense-tracker
 ```
 
-Alternatively:
+Alternatively, run the module:
 
 ```bash
 python -m expense_tracker.main
 ```
 
-## Current Limitations
+## Run Tests
 
-- Expenses are stored in memory and are lost when the application exits.
-- JSON persistence, automated tests, and expense editing are planned for future iterations.
+Run the complete test suite:
 
-## Learning Goals
+```bash
+python -m pytest -v
+```
 
-Practice Python fundamentals, CLI development, package structure, input validation, Git workflows, and software testing.
+## Check Code Quality
+
+Run Ruff's linter:
+
+```bash
+python -m ruff check .
+```
+
+Check formatting:
+
+```bash
+python -m ruff format --check .
+```
+
+To apply automatic lint fixes and formatting:
+
+```bash
+python -m ruff check . --fix
+python -m ruff format .
+```
+
+## Data Storage
+
+Expenses are stored locally in `data/expenses.json`. The application loads saved expenses when it starts and writes updates when expenses are added or deleted.
+
+The data file is generated at runtime and should not be committed to version control.
+
+## Learning Outcomes
+
+This project provides practical experience with:
+
+- Python modules, packages, and virtual environments.
+- Dataclasses, type hints, and `Decimal`.
+- Separation of business logic from CLI and storage code.
+- JSON serialization and filesystem operations.
+- Custom exceptions and logging.
+- Unit testing with pytest and temporary files.
+- Linting, formatting, and GitHub pull request workflows.

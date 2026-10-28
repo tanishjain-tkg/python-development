@@ -68,6 +68,4 @@ def delete_expense(
             logger.info("Deleted expense with ID %s", expense_id)
             return deleted
 
-    raise ExpenseNotFoundError(
-        f"Expense with ID {expense_id} not found."
-    )
+    raise ExpenseNotFoundError(f"Expense with ID {expense_id} not found.")
