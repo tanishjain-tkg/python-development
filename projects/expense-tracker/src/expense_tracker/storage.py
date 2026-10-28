@@ -9,11 +9,7 @@ from .models import Expense
 
 logger = logging.getLogger(__name__)
 
-DATA_FILE = (
-    Path(__file__).resolve().parents[2]
-    / "data"
-    / "expenses.json"
-)
+DATA_FILE = Path(__file__).resolve().parents[2] / "data" / "expenses.json"
 
 
 def load_expenses(
@@ -28,13 +24,13 @@ def load_expenses(
             records = json.load(file)
 
         if not isinstance(records, list):
-            raise ValueError("Expense data must be a JSON list.")
+            raise TypeError("Expense data must be a JSON list.")
 
         expenses = []
 
         for record in records:
             if not isinstance(record, dict):
-                raise ValueError("Each expense must be a JSON object.")
+                raise TypeError("Each expense must be a JSON object.")
 
             expense = Expense(
                 id=int(record["id"]),
@@ -69,9 +65,7 @@ def load_expenses(
         ArithmeticError,
     ) as exc:
         logger.exception("Failed to load expenses from %s", file_path)
-        raise StorageError(
-            f"Could not read expense data from {file_path}."
-        ) from exc
+        raise StorageError(f"Could not read expense data from {file_path}.") from exc
 
 
 def save_expenses(
@@ -99,6 +93,4 @@ def save_expenses(
 
     except OSError as exc:
         logger.exception("Failed to save expenses to %s", file_path)
-        raise StorageError(
-            f"Could not save expense data to {file_path}."
-        ) from exc
+        raise StorageError(f"Could not save expense data to {file_path}.") from exc

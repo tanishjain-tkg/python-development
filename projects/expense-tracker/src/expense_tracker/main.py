@@ -6,15 +6,14 @@ from .exceptions import (
     InvalidExpenseError,
     StorageError,
 )
-
 from .services import (
     add_expense,
     calculate_total,
     delete_expense,
     list_expenses,
 )
-
 from .storage import load_expenses, save_expenses
+
 
 def configure_logging():
     log_dir = Path(__file__).resolve().parents[2] / "logs"
@@ -27,7 +26,9 @@ def configure_logging():
         encoding="utf-8",
     )
 
+
 logger = logging.getLogger(__name__)
+
 
 def display_expenses(expenses):
     if not expenses:
@@ -43,6 +44,7 @@ def display_expenses(expenses):
             f"{expense.date}"
         )
 
+
 def prompt(message):
     value = input(message).strip()
 
@@ -50,6 +52,7 @@ def prompt(message):
         raise SystemExit
 
     return value
+
 
 def main():
     configure_logging()
@@ -110,16 +113,12 @@ def main():
                 display_expenses(expenses)
 
                 try:
-                    expense_id = int(
-                        prompt("Enter the expense ID to delete: ")
-                    )
+                    expense_id = int(prompt("Enter the expense ID to delete: "))
                 except ValueError:
                     print("Expense ID must be an integer.")
                     continue
 
-                confirmation = prompt(
-                    f"Delete expense {expense_id}? (y/n): "
-                ).lower()
+                confirmation = prompt(f"Delete expense {expense_id}? (y/n): ").lower()
 
                 if confirmation != "y":
                     print("Deletion cancelled.")
@@ -147,7 +146,6 @@ def main():
         logger.info("Expense Tracker stopped.")
 
     print("Goodbye!")
-
 
 
 if __name__ == "__main__":
